@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<teamcity-plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="urn:shemas-jetbrains-com:teamcity-plugin-v1-xml">
+  <info>
+    <name>DelayedBuildFinishedTrigger</name>
+    <display-name>Delayed Build Finished Trigger</display-name>
+    <version>@version@</version>
+    <description>Finished Build Trigger with a specified delay</description>
+
+    <vendor>
+      <name>Rhys Godfrey</name>
+      <url>http://github.com/rhysgodfrey/team-city-delayed-finished-build-trigger</url>
+    </vendor>
+  </info>
+</teamcity-plugin>
