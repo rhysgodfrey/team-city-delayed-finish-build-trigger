@@ -2,5 +2,5 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans default-autowire="constructor">
-  <bean id="delayedBuildFinishedTrigger" class="jetbrains.sample.triggers.DelayedBuildFinishedTrigger"/>
+  <bean id="delayedBuildFinishedTrigger" class="rhysgodfrey.teamcity.triggers.DelayedBuildFinishedTrigger"/>
 </beans>

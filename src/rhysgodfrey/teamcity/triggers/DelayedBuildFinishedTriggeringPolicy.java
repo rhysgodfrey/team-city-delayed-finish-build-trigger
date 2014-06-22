@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package jetbrains.sample.triggers;
+package rhysgodfrey.teamcity.triggers;
 
 import jetbrains.buildServer.buildTriggers.BuildTriggerException;
 import jetbrains.buildServer.buildTriggers.PolledBuildTrigger;
