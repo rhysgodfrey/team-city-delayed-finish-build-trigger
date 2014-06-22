@@ -73,21 +73,34 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DelayedBuildFinishedTriggeringPolicy.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="DelayedBuildFinishedTriggeringPolicy.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/rhysgodfrey/teamcity/triggers/DelayedBuildFinishedTriggeringPolicy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="833" max-vertical-offset="1088">
-              <caret line="49" column="99" selection-start-line="49" selection-start-column="99" selection-end-line="49" selection-end-column="99" />
+            <state vertical-scroll-proportion="0.39253998" vertical-offset="204" max-vertical-offset="1428">
+              <caret line="52" column="13" selection-start-line="52" selection-start-column="13" selection-end-line="52" selection-end-column="13" />
+              <folding>
+                <element signature="e#1383#1384#0" expanded="true" />
+                <element signature="e#1429#1430#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DelayedBuildFinishedTrigger.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/rhysgodfrey/teamcity/triggers/DelayedBuildFinishedTrigger.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="748">
+              <caret line="42" column="46" selection-start-line="42" selection-start-column="46" selection-end-line="42" selection-end-column="46" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DelayedBuildFinishedTrigger.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/rhysgodfrey/teamcity/triggers/DelayedBuildFinishedTrigger.java">
+      <file leaf-file-name="DelayedBuildFinishTriggerConstants.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/rhysgodfrey/teamcity/triggers/DelayedBuildFinishTriggerConstants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.058020476" vertical-offset="0" max-vertical-offset="748">
-              <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
+              <caret line="23" column="71" selection-start-line="23" selection-start-column="71" selection-end-line="23" selection-end-column="71" />
               <folding />
             </state>
           </provider>
@@ -114,6 +127,8 @@
         <option value="$PROJECT_DIR$/build.xml" />
         <option value="$PROJECT_DIR$/src/rhysgodfrey/sample/triggers/DelayedBuildFinishedTrigger.java" />
         <option value="$PROJECT_DIR$/src/rhysgodfrey/teamcity/triggers/DelayedBuildFinishedTrigger.java" />
+        <option value="$PROJECT_DIR$/src/rhysgodfrey/teamcity/triggers/DelayedBuildFinishTriggerConstants.java" />
+        <option value="$PROJECT_DIR$/src/rhysgodfrey/teamcity/triggers/DelayedBuildFinishedTriggeringPolicy.java" />
       </list>
     </option>
   </component>
@@ -490,7 +505,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="833" max-vertical-offset="1088">
           <caret line="49" column="99" selection-start-line="49" selection-start-column="99" selection-end-line="49" selection-end-column="99" />
-          <folding />
+          <folding>
+            <element signature="e#1383#1384#0" expanded="true" />
+            <element signature="e#1429#1430#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -562,7 +580,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="595" max-vertical-offset="1003">
           <caret line="35" column="68" selection-start-line="35" selection-start-column="68" selection-end-line="35" selection-end-column="68" />
-          <folding />
+          <folding>
+            <element signature="e#1383#1384#0" expanded="true" />
+            <element signature="e#1429#1430#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -620,14 +641,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/rhysgodfrey/teamcity/triggers/DelayedBuildFinishedTriggeringPolicy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="77" max-vertical-offset="850">
-          <caret line="49" column="99" selection-start-line="49" selection-start-column="99" selection-end-line="49" selection-end-column="99" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/buildServerResources/delayedBuildTriggerConfig.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="77" max-vertical-offset="714">
@@ -653,9 +666,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/rhysgodfrey/teamcity/triggers/DelayedBuildFinishedTrigger.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.058020476" vertical-offset="0" max-vertical-offset="748">
-          <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="748">
+          <caret line="42" column="46" selection-start-line="42" selection-start-column="46" selection-end-line="42" selection-end-column="46" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/rhysgodfrey/teamcity/triggers/DelayedBuildFinishTriggerConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
+          <caret line="23" column="71" selection-start-line="23" selection-start-column="71" selection-end-line="23" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/rhysgodfrey/teamcity/triggers/DelayedBuildFinishedTriggeringPolicy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.39253998" vertical-offset="204" max-vertical-offset="1428">
+          <caret line="52" column="13" selection-start-line="52" selection-start-column="13" selection-end-line="52" selection-end-column="13" />
+          <folding>
+            <element signature="e#1383#1384#0" expanded="true" />
+            <element signature="e#1429#1430#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

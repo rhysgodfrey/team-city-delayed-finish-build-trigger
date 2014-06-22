@@ -19,6 +19,8 @@ package rhysgodfrey.teamcity.triggers;
 import jetbrains.buildServer.buildTriggers.BuildTriggerException;
 import jetbrains.buildServer.buildTriggers.PolledBuildTrigger;
 import jetbrains.buildServer.buildTriggers.PolledTriggerContext;
+import jetbrains.buildServer.serverSide.SBuildType;
+import jetbrains.buildServer.serverSide.SFinishedBuild;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedWriter;
@@ -33,26 +35,71 @@ public class DelayedBuildFinishedTriggeringPolicy extends PolledBuildTrigger {
 
     @Override
     public void triggerActivated(@NotNull PolledTriggerContext context) throws BuildTriggerException{
-        context.getCustomDataStorage().putValue("RhysValue", "First!");
+        SaveLastFinishedBuild(context);
     }
 
     @Override
     public void triggerBuild(@NotNull PolledTriggerContext context) throws BuildTriggerException {
-        try {
-            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("c:\\temp\\plugin-log.txt", true)));
-            out.println("Here!");
-            out.println(context.getCustomDataStorage().getValue("RhysValue"));
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Date date = new Date();
-            context.getCustomDataStorage().putValue("RhysValue", dateFormat.format(date));
+        String lastTriggeredId = GetLastTriggeredBuild(context);
+        SFinishedBuild lastTriggerBuild = GetLastTriggerBuild(context);
 
-            for(Object key : context.getTriggerDescriptor().getProperties().keySet()){
-                out.println(key + " : " + context.getTriggerDescriptor().getProperties().get(key));
+        if (lastTriggerBuild != null) {
+            if (lastTriggeredId.equalsIgnoreCase(Long.toString(lastTriggerBuild.getBuildId()))) {
+                Date triggerTime = new Date(lastTriggerBuild.getFinishDate().getTime() + WaitTime(context) * 60 * 1000L);
+
+                if (triggerTime.after(new Date())) {
+                    context.getBuildType().addToQueue("Delayed build trigger : " + lastTriggerBuild.getFullName());
+                }
             }
-
-            out.close();
-        } catch (IOException e) {
-            //exception handling left as an exercise for the reader
         }
+    }
+
+    private String TriggerConfigurationId(@NotNull PolledTriggerContext context) {
+        return context.getTriggerDescriptor().getProperties()
+                .get(DelayedBuildFinishTriggerConstants.TriggerConfigurationProperty);
+    }
+
+    private Boolean SuccessfulBuildsOnly(@NotNull PolledTriggerContext context) {
+        return Boolean.parseBoolean(context.getTriggerDescriptor().getProperties()
+                .get(DelayedBuildFinishTriggerConstants.AfterSuccessfulBuildOnlyProperty));
+    }
+
+    private Integer WaitTime(@NotNull PolledTriggerContext context) {
+        return Integer.parseInt(context.getTriggerDescriptor().getProperties()
+                .get(DelayedBuildFinishTriggerConstants.WaitTimeProperty));
+    }
+
+    private String GetLastTriggeredBuild(@NotNull PolledTriggerContext context) {
+        return context.getCustomDataStorage().getValue(DelayedBuildFinishTriggerConstants.LastBuildIdKey);
+    }
+
+    private void SaveLastFinishedBuild(@NotNull PolledTriggerContext context) {
+        SFinishedBuild lastBuild = GetLastTriggerBuild(context);
+
+        if (lastBuild == null) {
+            context.getCustomDataStorage().putValue(DelayedBuildFinishTriggerConstants.LastBuildIdKey, "");
+            return;
+        }
+
+        context.getCustomDataStorage()
+                .putValue(DelayedBuildFinishTriggerConstants.LastBuildIdKey, Long.toString(lastBuild.getBuildId()));
+    }
+
+    private SFinishedBuild GetLastTriggerBuild(@NotNull PolledTriggerContext context) {
+        String triggerBuildId = TriggerConfigurationId(context);
+        SBuildType currentBuild = context.getBuildType();
+
+        for (SBuildType dependency : currentBuild.getDependencyReferences()) {
+            if (dependency.getBuildTypeId().equalsIgnoreCase(triggerBuildId)) {
+                if(SuccessfulBuildsOnly(context)) {
+                    return dependency.getLastChangesSuccessfullyFinished();
+                }
+                else {
+                    return dependency.getLastChangesFinished();
+                }
+            }
+        }
+
+        return null;
     }
 }
