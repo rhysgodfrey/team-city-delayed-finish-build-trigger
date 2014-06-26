@@ -63,11 +63,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="delayedBuildTriggerConfig.jsp" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="delayedBuildTriggerConfig.jsp" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/buildServerResources/delayedBuildTriggerConfig.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="77" max-vertical-offset="714">
-              <caret line="14" column="105" selection-start-line="14" selection-start-column="105" selection-end-line="14" selection-end-column="105" />
+            <state vertical-scroll-proportion="0.28596804" vertical-offset="77" max-vertical-offset="714">
+              <caret line="14" column="121" selection-start-line="14" selection-start-column="121" selection-end-line="14" selection-end-column="121" />
               <folding />
             </state>
           </provider>
@@ -83,10 +83,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DelayedBuildFinishedTrigger.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="DelayedBuildFinishedTrigger.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/rhysgodfrey/teamcity/triggers/DelayedBuildFinishedTrigger.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5435169" vertical-offset="0" max-vertical-offset="816">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="816">
               <caret line="39" column="36" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
               <folding />
             </state>
@@ -118,7 +118,6 @@
         <option value="$PROJECT_DIR$/teamcity-plugin.xml" />
         <option value="$PROJECT_DIR$/src/jetbrains/sample/triggers/TriggerConfiguration.java" />
         <option value="$PROJECT_DIR$/src/jetbrains/sample/triggers/DelayedBuildFinishedTriggeringPolicy.java" />
-        <option value="$PROJECT_DIR$/resources/buildServerResources/delayedBuildTriggerConfig.jsp" />
         <option value="$PROJECT_DIR$/src/jetbrains/sample/triggers/DelayedBuildFinishedTrigger.java" />
         <option value="$PROJECT_DIR$/build.xml" />
         <option value="$PROJECT_DIR$/src/rhysgodfrey/sample/triggers/DelayedBuildFinishedTrigger.java" />
@@ -126,6 +125,7 @@
         <option value="$PROJECT_DIR$/src/META-INF/build-server-plugin-samplePlugin.xml" />
         <option value="$PROJECT_DIR$/src/rhysgodfrey/teamcity/triggers/DelayedBuildFinishedTriggeringPolicy.java" />
         <option value="$PROJECT_DIR$/src/rhysgodfrey/teamcity/triggers/DelayedBuildFinishedTrigger.java" />
+        <option value="$PROJECT_DIR$/resources/buildServerResources/delayedBuildTriggerConfig.jsp" />
       </list>
     </option>
   </component>
@@ -212,6 +212,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="META-INF" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="team-city-delayed-finish-build-trigger" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="team-city-delayed-finish-build-trigger" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buildServerResources" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -702,14 +720,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/buildServerResources/delayedBuildTriggerConfig.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="77" max-vertical-offset="714">
-          <caret line="14" column="105" selection-start-line="14" selection-start-column="105" selection-end-line="14" selection-end-column="105" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$TeamCityDistribution$/devPackage/src/openApi-source.jar!/jetbrains/buildServer/buildTriggers/BuildTriggerService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1326">
@@ -767,8 +777,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/rhysgodfrey/teamcity/triggers/DelayedBuildFinishedTrigger.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5435169" vertical-offset="0" max-vertical-offset="816">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="816">
           <caret line="39" column="36" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/buildServerResources/delayedBuildTriggerConfig.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.28596804" vertical-offset="77" max-vertical-offset="714">
+          <caret line="14" column="121" selection-start-line="14" selection-start-column="121" selection-end-line="14" selection-end-column="121" />
           <folding />
         </state>
       </provider>

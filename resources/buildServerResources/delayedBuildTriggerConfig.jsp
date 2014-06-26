@@ -12,7 +12,7 @@
         </tr>
         <tr>
             <td style="vertical-align: top;">
-                <label for="trigger_configuration">Build configuration Id (must be a snapshot dependency):</label>
+                <label for="trigger_configuration">Build configuration Id (Use the internal id (e.g. bt1) where possible):</label>
             </td>
             <td style="vertical-align: top;">
                 <props:textProperty name="trigger_configuration"/>
