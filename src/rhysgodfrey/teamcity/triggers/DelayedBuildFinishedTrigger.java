@@ -37,7 +37,7 @@ public class DelayedBuildFinishedTrigger extends BuildTriggerService {
     @NotNull
     @Override
     public String getName() {
-        return "Delayed Finished Build Trigger";
+        return "DelayedFinishedBuildTrigger";
     }
 
     @NotNull
