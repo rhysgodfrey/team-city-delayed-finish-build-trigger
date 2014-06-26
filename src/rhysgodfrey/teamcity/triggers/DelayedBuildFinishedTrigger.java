@@ -19,16 +19,19 @@ package rhysgodfrey.teamcity.triggers;
 import jetbrains.buildServer.buildTriggers.BuildTriggerDescriptor;
 import jetbrains.buildServer.buildTriggers.BuildTriggerService;
 import jetbrains.buildServer.buildTriggers.BuildTriggeringPolicy;
+import jetbrains.buildServer.serverSide.ProjectManager;
 import jetbrains.buildServer.web.openapi.PluginDescriptor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class DelayedBuildFinishedTrigger extends BuildTriggerService {
     private PluginDescriptor _descriptor;
+    private ProjectManager _projectManager;
 
-    public DelayedBuildFinishedTrigger(@NotNull PluginDescriptor descriptor) {
+    public DelayedBuildFinishedTrigger(@NotNull PluginDescriptor descriptor, @NotNull ProjectManager projectManager) {
         super();
         _descriptor = descriptor;
+        _projectManager = projectManager;
     }
 
     @NotNull
@@ -52,7 +55,7 @@ public class DelayedBuildFinishedTrigger extends BuildTriggerService {
     @NotNull
     @Override
     public BuildTriggeringPolicy getBuildTriggeringPolicy() {
-        return new DelayedBuildFinishedTriggeringPolicy();
+        return new DelayedBuildFinishedTriggeringPolicy(_projectManager);
     }
 
     @Nullable
