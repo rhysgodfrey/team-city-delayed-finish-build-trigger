@@ -4,6 +4,7 @@
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags/admin" %>
 
 <jsp:useBean id="propertiesBean" scope="request" type="jetbrains.buildServer.controllers.BasePropertiesBean"/>
+<jsp:useBean id="delayedFinishedBuildTriggerBean" type="rhysgodfrey.teamcity.triggers.DelayedBuildFinishedSettingsBean" scope="request"/>
 
 <table class="runnerFormTable" style="width: 99%;">
     <tbody>
@@ -12,10 +13,19 @@
         </tr>
         <tr>
             <td style="vertical-align: top;">
-                <label for="trigger_configuration">Build configuration Id (Use the internal id (e.g. bt1) where possible):</label>
+                <label for="trigger_configuration">Build configuration:</label>
             </td>
             <td style="vertical-align: top;">
-                <props:textProperty name="trigger_configuration"/>
+                <props:selectProperty name="trigger_configuration" style="width: 100%;" enableFilter="true">
+                  <props:option value="">-- Please select a build configuration --</props:option>
+                  <c:forEach items="${delayedFinishedBuildTriggerBean.availableActiveBuildTypes}" var="buildType">
+                    <props:option value="${buildType.buildTypeId}"><c:out value="${buildType.extendedName}"/></props:option>
+                  </c:forEach>
+                  <props:option value="">-- Archived configurations --</props:option>
+                  <c:forEach items="${delayedFinishedBuildTriggerBean.availableArchivedBuildTypes}" var="buildType">
+                    <props:option value="${buildType.buildTypeId}"><c:out value="${buildType.extendedName}"/></props:option>
+                  </c:forEach>
+                </props:selectProperty>
             </td>
         </tr>
         <tr>

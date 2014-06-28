@@ -25,6 +25,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class DelayedBuildFinishedTrigger extends BuildTriggerService {
+    public static final String EDIT_URL_BUILD_TRIGGER = "delayedBuildTriggerConfig";
+    public static final String EDIT_URL_BUILD_TRIGGER_JSP = EDIT_URL_BUILD_TRIGGER + ".jsp";
+    public static final String EDIT_URL_BUILD_TRIGGER_HTML = EDIT_URL_BUILD_TRIGGER + ".html";
+
     private PluginDescriptor _descriptor;
     private ProjectManager _projectManager;
 
@@ -61,6 +65,6 @@ public class DelayedBuildFinishedTrigger extends BuildTriggerService {
     @Nullable
     @Override
     public java.lang.String getEditParametersUrl() {
-        return _descriptor.getPluginResourcesPath("delayedBuildTriggerConfig.jsp");
+        return _descriptor.getPluginResourcesPath(EDIT_URL_BUILD_TRIGGER_HTML);
     }
 }

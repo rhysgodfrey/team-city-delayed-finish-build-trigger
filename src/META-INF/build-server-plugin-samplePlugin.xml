@@ -3,4 +3,5 @@
 
 <beans default-autowire="constructor">
   <bean id="delayedBuildFinishedTrigger" class="rhysgodfrey.teamcity.triggers.DelayedBuildFinishedTrigger"/>
+  <bean class="rhysgodfrey.teamcity.triggers.DelayedBuildFinishTriggerEditSettingsController"/>
 </beans>
