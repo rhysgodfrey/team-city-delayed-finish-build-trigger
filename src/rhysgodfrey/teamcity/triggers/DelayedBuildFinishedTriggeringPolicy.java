@@ -20,93 +20,83 @@ import com.intellij.openapi.diagnostic.Logger;
 import jetbrains.buildServer.buildTriggers.BuildTriggerException;
 import jetbrains.buildServer.buildTriggers.PolledBuildTrigger;
 import jetbrains.buildServer.buildTriggers.PolledTriggerContext;
-import jetbrains.buildServer.log.LogUtil;
 import jetbrains.buildServer.log.Loggers;
 import jetbrains.buildServer.serverSide.*;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.FileWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DelayedBuildFinishedTriggeringPolicy extends PolledBuildTrigger {
 
     private static final Logger LOG = Loggers.SERVER;
 
-    private ProjectManager _projectManager;
+    private ProjectManager projectManager;
 
     public DelayedBuildFinishedTriggeringPolicy(ProjectManager projectManager) {
-        _projectManager = projectManager;
+        this.projectManager = projectManager;
     }
 
     @Override
     public void triggerActivated(@NotNull PolledTriggerContext context) throws BuildTriggerException{
-        SaveLastFinishedBuild(context);
+        saveLastFinishedBuild(context);
     }
 
     @Override
     public void triggerBuild(@NotNull PolledTriggerContext context) throws BuildTriggerException {
-        String lastTriggeredId = GetLastTriggeredBuild(context);
+        String lastTriggeredId = getLastDependentBuildIdTrigeredFor(context);
 
-        SFinishedBuild lastTriggerBuild = GetLastTriggerBuild(context);
+        SFinishedBuild lastTriggerBuild = getLastFinishedBuild(context);
 
         if (lastTriggerBuild != null) {
             if (!lastTriggeredId.equalsIgnoreCase(Long.toString(lastTriggerBuild.getBuildId()))) {
-                Date triggerTime = new Date(lastTriggerBuild.getFinishDate().getTime() + WaitTime(context) * 60 * 1000L);
+                Date triggerTime = new Date(lastTriggerBuild.getFinishDate().getTime() + getWaitTime(context) * 60 * 1000L);
 
                 if (triggerTime.before(new Date())) {
-                    SQueuedBuild queued = context.getBuildType().addToQueue("Delayed build trigger : " + lastTriggerBuild.getFullName());
+                    context.getBuildType().addToQueue("Delayed build trigger : " + lastTriggerBuild.getFullName());
                     context.getCustomDataStorage()
-                            .putValue(DelayedBuildFinishTriggerConstants.LastBuildIdKey, Long.toString(lastTriggerBuild.getBuildId()));
+                            .putValue(DelayedBuildFinishTriggerConstants.LAST_BUILD_ID_KEY, Long.toString(lastTriggerBuild.getBuildId()));
                 }
             }
         }
     }
 
-    private String TriggerConfigurationId(@NotNull PolledTriggerContext context) {
+    private String getDependentBuildConfigurationId(@NotNull PolledTriggerContext context) {
         return context.getTriggerDescriptor().getProperties()
-                .get(DelayedBuildFinishTriggerConstants.TriggerConfigurationProperty);
+                .get(DelayedBuildFinishTriggerConstants.TRIGGER_CONFIGURATION_PROPERTY);
     }
 
-    private Boolean SuccessfulBuildsOnly(@NotNull PolledTriggerContext context) {
+    private Boolean getSuccessfulBuildsOnlyConfiguration(@NotNull PolledTriggerContext context) {
         return Boolean.parseBoolean(context.getTriggerDescriptor().getProperties()
-                .get(DelayedBuildFinishTriggerConstants.AfterSuccessfulBuildOnlyProperty));
+                .get(DelayedBuildFinishTriggerConstants.AFTER_SUCCESSFUL_BUILD_ONLY_PROPERTY));
     }
 
-    private Integer WaitTime(@NotNull PolledTriggerContext context) {
+    private Integer getWaitTime(@NotNull PolledTriggerContext context) {
         return Integer.parseInt(context.getTriggerDescriptor().getProperties()
-                .get(DelayedBuildFinishTriggerConstants.WaitTimeProperty));
+                .get(DelayedBuildFinishTriggerConstants.WAIT_TIME_PROPERTY));
     }
 
-    private String GetLastTriggeredBuild(@NotNull PolledTriggerContext context) {
-        return context.getCustomDataStorage().getValue(DelayedBuildFinishTriggerConstants.LastBuildIdKey);
+    private String getLastDependentBuildIdTrigeredFor(@NotNull PolledTriggerContext context) {
+        return context.getCustomDataStorage().getValue(DelayedBuildFinishTriggerConstants.LAST_BUILD_ID_KEY);
     }
 
-    private void SaveLastFinishedBuild(@NotNull PolledTriggerContext context) {
-        SFinishedBuild lastBuild = GetLastTriggerBuild(context);
+    private void saveLastFinishedBuild(@NotNull PolledTriggerContext context) {
+        SFinishedBuild lastBuild = getLastFinishedBuild(context);
 
         if (lastBuild == null) {
-            context.getCustomDataStorage().putValue(DelayedBuildFinishTriggerConstants.LastBuildIdKey, "");
+            context.getCustomDataStorage().putValue(DelayedBuildFinishTriggerConstants.LAST_BUILD_ID_KEY, "");
             return;
         }
 
         context.getCustomDataStorage()
-                .putValue(DelayedBuildFinishTriggerConstants.LastBuildIdKey, Long.toString(lastBuild.getBuildId()));
+                .putValue(DelayedBuildFinishTriggerConstants.LAST_BUILD_ID_KEY, Long.toString(lastBuild.getBuildId()));
     }
 
-    private SFinishedBuild GetLastTriggerBuild(@NotNull PolledTriggerContext context) {
-        String triggerBuildId = TriggerConfigurationId(context);
-
-        SBuildType currentBuild = context.getBuildType();
-
-        SBuildType triggerBuild = GetTriggerBuild(triggerBuildId);
+    private SFinishedBuild getLastFinishedBuild(@NotNull PolledTriggerContext context) {
+        String triggerBuildId = getDependentBuildConfigurationId(context);
+        SBuildType triggerBuild = getDependentBuild(triggerBuildId);
 
         if (triggerBuild != null) {
-            if(SuccessfulBuildsOnly(context)) {
+            if(getSuccessfulBuildsOnlyConfiguration(context)) {
                 return triggerBuild.getLastChangesSuccessfullyFinished();
             }
             else {
@@ -117,13 +107,13 @@ public class DelayedBuildFinishedTriggeringPolicy extends PolledBuildTrigger {
         return null;
     }
 
-    private SBuildType GetTriggerBuild(String triggerBuildId) {
-        SBuildType byInternalId = _projectManager.findBuildTypeById(triggerBuildId);
+    private SBuildType getDependentBuild(String triggerBuildId) {
+        SBuildType byInternalId = projectManager.findBuildTypeById(triggerBuildId);
 
         if (byInternalId != null) {
             return byInternalId;
         }
 
-        return _projectManager.findBuildTypeByExternalId(triggerBuildId);
+        return projectManager.findBuildTypeByExternalId(triggerBuildId);
     }
 }

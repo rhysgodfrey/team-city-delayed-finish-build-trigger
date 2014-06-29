@@ -29,13 +29,13 @@ public class DelayedBuildFinishedTrigger extends BuildTriggerService {
     public static final String EDIT_URL_BUILD_TRIGGER_JSP = EDIT_URL_BUILD_TRIGGER + ".jsp";
     public static final String EDIT_URL_BUILD_TRIGGER_HTML = EDIT_URL_BUILD_TRIGGER + ".html";
 
-    private PluginDescriptor _descriptor;
-    private ProjectManager _projectManager;
+    private PluginDescriptor descriptor;
+    private ProjectManager projectManager;
 
     public DelayedBuildFinishedTrigger(@NotNull PluginDescriptor descriptor, @NotNull ProjectManager projectManager) {
         super();
-        _descriptor = descriptor;
-        _projectManager = projectManager;
+        this.descriptor = descriptor;
+        this.projectManager = projectManager;
     }
 
     @NotNull
@@ -59,12 +59,12 @@ public class DelayedBuildFinishedTrigger extends BuildTriggerService {
     @NotNull
     @Override
     public BuildTriggeringPolicy getBuildTriggeringPolicy() {
-        return new DelayedBuildFinishedTriggeringPolicy(_projectManager);
+        return new DelayedBuildFinishedTriggeringPolicy(projectManager);
     }
 
     @Nullable
     @Override
     public java.lang.String getEditParametersUrl() {
-        return _descriptor.getPluginResourcesPath(EDIT_URL_BUILD_TRIGGER_HTML);
+        return descriptor.getPluginResourcesPath(EDIT_URL_BUILD_TRIGGER_HTML);
     }
 }

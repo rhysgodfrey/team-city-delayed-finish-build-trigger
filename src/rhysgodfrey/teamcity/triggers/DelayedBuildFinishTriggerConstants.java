@@ -17,9 +17,9 @@
 package rhysgodfrey.teamcity.triggers;
 
 public class DelayedBuildFinishTriggerConstants {
-    public final static String AfterSuccessfulBuildOnlyProperty = "afterSuccessfulBuildOnly";
-    public final static String TriggerConfigurationProperty = "trigger_configuration";
-    public final static String WaitTimeProperty = "wait_time";
+    public final static String AFTER_SUCCESSFUL_BUILD_ONLY_PROPERTY = "afterSuccessfulBuildOnly";
+    public final static String TRIGGER_CONFIGURATION_PROPERTY = "trigger_configuration";
+    public final static String WAIT_TIME_PROPERTY = "wait_time";
 
-    public final static String LastBuildIdKey = "LastTriggeredBuildId";
+    public final static String LAST_BUILD_ID_KEY = "LastTriggeredBuildId";
 }
