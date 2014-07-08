@@ -20,6 +20,7 @@ import jetbrains.buildServer.buildTriggers.BuildTriggerDescriptor;
 import jetbrains.buildServer.buildTriggers.BuildTriggerService;
 import jetbrains.buildServer.buildTriggers.BuildTriggeringPolicy;
 import jetbrains.buildServer.serverSide.ProjectManager;
+import jetbrains.buildServer.serverSide.SBuildType;
 import jetbrains.buildServer.web.openapi.PluginDescriptor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -53,7 +54,25 @@ public class DelayedBuildFinishedTrigger extends BuildTriggerService {
     @NotNull
     @Override
     public String describeTrigger(@NotNull BuildTriggerDescriptor trigger) {
-        return "Finished Build Trigger with a specified delay";
+        Integer waitTime = DelayedBuildFinishedConfiguration.getWaitTime(trigger.getProperties());
+
+        String minutesString = "minutes";
+
+        if (waitTime == 1) {
+            minutesString = "minute";
+        }
+
+        String triggerDescription = "Wait " + waitTime + " " + minutesString + " after a ";
+
+        if (DelayedBuildFinishedConfiguration.getSuccessfulBuildsOnlyConfiguration(trigger.getProperties())) {
+            triggerDescription += "successful ";
+        }
+
+        String buildId = DelayedBuildFinishedConfiguration.getDependentBuildConfigurationId(trigger.getProperties());
+
+        triggerDescription += "build in " + getDependentBuild(buildId).getFullName();
+
+        return triggerDescription;
     }
 
     @NotNull
@@ -66,5 +85,15 @@ public class DelayedBuildFinishedTrigger extends BuildTriggerService {
     @Override
     public java.lang.String getEditParametersUrl() {
         return descriptor.getPluginResourcesPath(EDIT_URL_BUILD_TRIGGER_HTML);
+    }
+
+    private SBuildType getDependentBuild(String triggerBuildId) {
+        SBuildType byInternalId = projectManager.findBuildTypeById(triggerBuildId);
+
+        if (byInternalId != null) {
+            return byInternalId;
+        }
+
+        return projectManager.findBuildTypeByExternalId(triggerBuildId);
     }
 }

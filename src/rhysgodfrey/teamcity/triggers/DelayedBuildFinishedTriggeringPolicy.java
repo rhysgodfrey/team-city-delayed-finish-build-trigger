@@ -70,18 +70,15 @@ public class DelayedBuildFinishedTriggeringPolicy extends PolledBuildTrigger {
     }
 
     private String getDependentBuildConfigurationId(@NotNull PolledTriggerContext context) {
-        return context.getTriggerDescriptor().getProperties()
-                .get(DelayedBuildFinishTriggerConstants.TRIGGER_CONFIGURATION_PROPERTY);
+        return DelayedBuildFinishedConfiguration.getDependentBuildConfigurationId(context.getTriggerDescriptor().getProperties());
     }
 
     private Boolean getSuccessfulBuildsOnlyConfiguration(@NotNull PolledTriggerContext context) {
-        return Boolean.parseBoolean(context.getTriggerDescriptor().getProperties()
-                .get(DelayedBuildFinishTriggerConstants.AFTER_SUCCESSFUL_BUILD_ONLY_PROPERTY));
+        return DelayedBuildFinishedConfiguration.getSuccessfulBuildsOnlyConfiguration(context.getTriggerDescriptor().getProperties());
     }
 
     private Integer getWaitTime(@NotNull PolledTriggerContext context) {
-        return Integer.parseInt(context.getTriggerDescriptor().getProperties()
-                .get(DelayedBuildFinishTriggerConstants.WAIT_TIME_PROPERTY));
+        return DelayedBuildFinishedConfiguration.getWaitTime(context.getTriggerDescriptor().getProperties());
     }
 
     private String getLastDependentBuildIdTrigeredFor(@NotNull PolledTriggerContext context) {
