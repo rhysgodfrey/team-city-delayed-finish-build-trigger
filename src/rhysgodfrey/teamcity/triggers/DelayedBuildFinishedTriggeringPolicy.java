@@ -49,10 +49,19 @@ public class DelayedBuildFinishedTriggeringPolicy extends PolledBuildTrigger {
 
         if (lastTriggerBuild != null) {
             if (!lastTriggeredId.equalsIgnoreCase(Long.toString(lastTriggerBuild.getBuildId()))) {
-                Date triggerTime = new Date(lastTriggerBuild.getFinishDate().getTime() + getWaitTime(context) * 60 * 1000L);
+                Integer waitTime = getWaitTime(context);
+
+                Date triggerTime = new Date(lastTriggerBuild.getFinishDate().getTime() + waitTime * 60 * 1000L);
 
                 if (triggerTime.before(new Date())) {
-                    context.getBuildType().addToQueue("Delayed build trigger : " + lastTriggerBuild.getFullName());
+                    String minutesString = "minutes";
+
+                    if (waitTime == 1) {
+                        minutesString = "minute";
+                    }
+
+                    context.getBuildType().addToQueue(lastTriggerBuild.getFullName() + ", #"
+                            + lastTriggerBuild.getBuildNumber() + ", delayed by " + getWaitTime(context) + " " + minutesString);
                     context.getCustomDataStorage()
                             .putValue(DelayedBuildFinishTriggerConstants.LAST_BUILD_ID_KEY, Long.toString(lastTriggerBuild.getBuildId()));
                 }
