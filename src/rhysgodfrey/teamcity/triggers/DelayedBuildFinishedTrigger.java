@@ -19,11 +19,18 @@ package rhysgodfrey.teamcity.triggers;
 import jetbrains.buildServer.buildTriggers.BuildTriggerDescriptor;
 import jetbrains.buildServer.buildTriggers.BuildTriggerService;
 import jetbrains.buildServer.buildTriggers.BuildTriggeringPolicy;
+import jetbrains.buildServer.serverSide.InvalidProperty;
 import jetbrains.buildServer.serverSide.ProjectManager;
+import jetbrains.buildServer.serverSide.PropertiesProcessor;
 import jetbrains.buildServer.serverSide.SBuildType;
+import jetbrains.buildServer.util.StringUtil;
 import jetbrains.buildServer.web.openapi.PluginDescriptor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
 
 public class DelayedBuildFinishedTrigger extends BuildTriggerService {
     public static final String EDIT_URL_BUILD_TRIGGER = "delayedBuildTriggerConfig";
@@ -85,6 +92,35 @@ public class DelayedBuildFinishedTrigger extends BuildTriggerService {
     @Override
     public java.lang.String getEditParametersUrl() {
         return descriptor.getPluginResourcesPath(EDIT_URL_BUILD_TRIGGER_HTML);
+    }
+
+    @Override
+    public PropertiesProcessor getTriggerPropertiesProcessor() {
+        return new PropertiesProcessor() {
+            public Collection<InvalidProperty> process(Map<String, String> properties) {
+                final ArrayList<InvalidProperty> invalidProps = new ArrayList<InvalidProperty>();
+                final String triggerBuildId = properties.get(DelayedBuildFinishTriggerConstants.TRIGGER_CONFIGURATION_PROPERTY);
+                if (StringUtil.isEmptyOrSpaces(triggerBuildId)) {
+                    invalidProps.add(new InvalidProperty(DelayedBuildFinishTriggerConstants.TRIGGER_CONFIGURATION_PROPERTY, "Trigger Build must be specified"));
+                }
+
+                final SBuildType build = getDependentBuild(properties.get(DelayedBuildFinishTriggerConstants.TRIGGER_CONFIGURATION_PROPERTY));
+                if (build == null) {
+                    invalidProps.add(new InvalidProperty(DelayedBuildFinishTriggerConstants.TRIGGER_CONFIGURATION_PROPERTY, "Trigger build must exist"));
+                }
+
+                final String waitTime = properties.get(DelayedBuildFinishTriggerConstants.WAIT_TIME_PROPERTY);
+                if (StringUtil.isEmptyOrSpaces(triggerBuildId)) {
+                    invalidProps.add(new InvalidProperty(DelayedBuildFinishTriggerConstants.WAIT_TIME_PROPERTY, "Wait Time must be specified"));
+                }
+
+                if(!StringUtil.isNumber(properties.get(DelayedBuildFinishTriggerConstants.WAIT_TIME_PROPERTY))) {
+                    invalidProps.add(new InvalidProperty(DelayedBuildFinishTriggerConstants.WAIT_TIME_PROPERTY, "Wait Time must be a number"));
+                }
+
+                return invalidProps;
+            }
+        };
     }
 
     private SBuildType getDependentBuild(String triggerBuildId) {

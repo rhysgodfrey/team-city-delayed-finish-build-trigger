@@ -26,6 +26,7 @@
                     <props:option value="${buildType.buildTypeId}"><c:out value="${buildType.extendedName}"/></props:option>
                   </c:forEach>
                 </props:selectProperty>
+                <span class="error" id="error_trigger_configuration"></span>
             </td>
         </tr>
         <tr>
@@ -41,6 +42,7 @@
             </td>
             <td style="vertical-align: top;">
                 <props:textProperty name="wait_time"/>
+                <span class="error" id="error_wait_time"></span>
             </td>
         </tr>
     </tbody>
