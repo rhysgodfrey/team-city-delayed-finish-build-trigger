@@ -9,7 +9,7 @@
 
     <vendor>
       <name>Rhys Godfrey</name>
-      <url>http://github.com/rhysgodfrey/team-city-delayed-finished-build-trigger</url>
+      <url>https://github.com/rhysgodfrey/team-city-delayed-finish-build-trigger</url>
     </vendor>
   </info>
 </teamcity-plugin>
